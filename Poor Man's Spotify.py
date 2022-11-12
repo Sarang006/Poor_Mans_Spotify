@@ -29,7 +29,7 @@ def stop():
     list_box.select_clear('active')           #to remove selection from the list_box
 
 def play_next():
-    next_song= list_box.curselection()
+    next_song= list_box.curselection()        #to obtain the current song 
     next_song=next_song[0]+1
     next_song_name=list_box.get(next_song)
     label.config(text= next_song_name)
@@ -51,20 +51,20 @@ def play_prev():
     list_box.select_set(prev_song)
 
 def pause_song():
-    if pause["text"]=="pause":
+    if pause["text"]=="pause":           #by default the text in pause button is "pause", if so then we have to play the song
         mixer.music.pause()
         pause["text"]="play"
     else:
         mixer.music.unpause()
         pause["text"] = "pause"
 
-list_box=tk.Listbox(root, fg="cyan",bg="black", width= 100, font=('ds-digital', 14))
+list_box=tk.Listbox(root, fg="cyan",bg="black", width= 100, font=('ds-digital', 14))      #a list box to hold the songs that are available
 list_box.pack(padx=15,pady=50)
-for name,sub,files in os.walk(rootpath):
-    for filename in fnmatch.filter(files,pattern):
+for name,sub,files in os.walk(rootpath):                                                  #os.walk() returns the directory, subdirectory, file name
+    for filename in fnmatch.filter(files,pattern):                                        #using fnmatch we are checking if the files has extension .wav
         list_box.insert('end', filename)
 
-label=tk.Label(root,text='', bg='black', fg='yellow', font=('ds-digital', 14))
+label=tk.Label(root,text='', bg='black', fg='yellow', font=('ds-digital', 14))            #label is used to display the name of song that is currently playing
 label.pack(pady=15, padx=15)
 
 top=tk.Frame(root,bg='black')                #frame to hold the control buttons
